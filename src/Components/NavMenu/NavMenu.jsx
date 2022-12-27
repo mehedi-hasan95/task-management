@@ -15,14 +15,14 @@ const NavMenu = () => {
     }, []);
 
     useEffect(() => {
-        // select html elem
-        const html = document.querySelector("html");
-        if (localStorage.getItem("theme") === "dark") {
-            html.classList.add("dark");
-            setTheme("dark");
+        if (
+            localStorage.theme === "dark" ||
+            (!("theme" in localStorage) &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+            document.documentElement.classList.add("dark");
         } else {
-            html.classList.remove("dark");
-            setTheme("light");
+            document.documentElement.classList.remove("dark");
         }
     }, [theme]);
 
@@ -40,10 +40,10 @@ const NavMenu = () => {
     // End Dark Theme
 
     return (
-        <header className="p-4 dark:bg-gray-800 dark:text-gray-100">
+        <header className="p-4 dark:bg-gray-800 dark:text-gray-100 mb-5">
             <div className="container flex justify-between h-16 mx-auto">
                 <Link
-                    href="#"
+                    to="/"
                     aria-label="Back to homepage"
                     className="flex items-center p-2"
                 >
@@ -52,7 +52,7 @@ const NavMenu = () => {
                 <ul className="items-stretch hidden space-x-3 lg:flex">
                     <li className="flex">
                         <Link
-                            href="#"
+                            to="/"
                             className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
                         >
                             Home
@@ -60,7 +60,7 @@ const NavMenu = () => {
                     </li>
                     <li className="flex">
                         <Link
-                            href="#"
+                            to="/add-task"
                             className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent"
                         >
                             Add Task
@@ -68,7 +68,7 @@ const NavMenu = () => {
                     </li>
                     <li className="flex">
                         <Link
-                            href="#"
+                            to="/my-task"
                             className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent"
                         >
                             My Task
@@ -76,7 +76,7 @@ const NavMenu = () => {
                     </li>
                     <li className="flex">
                         <Link
-                            href="#"
+                            to="/compleated-task"
                             className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent"
                         >
                             Compleated Task
