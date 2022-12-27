@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 
 const NavMenu = () => {
@@ -39,48 +39,65 @@ const NavMenu = () => {
 
     // End Dark Theme
 
+    // NavNavLink
+    let activeStyle = {
+        borderBottom: "2px solid #ededed",
+    };
+
     return (
         <header className="p-4 dark:bg-gray-800 dark:text-gray-100 mb-5">
             <div className="container flex justify-between h-16 mx-auto">
-                <Link
+                <NavLink
                     to="/"
                     aria-label="Back to homepage"
                     className="flex items-center p-2"
                 >
                     <h2>Task Managment</h2>
-                </Link>
+                </NavLink>
                 <ul className="items-stretch hidden space-x-3 lg:flex">
                     <li className="flex">
-                        <Link
+                        <NavLink
                             to="/"
-                            className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400"
+                            className="flex items-center px-4 -mb-1"
+                            style={({ isActive }) =>
+                                isActive ? activeStyle : undefined
+                            }
                         >
                             Home
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="flex">
-                        <Link
+                        <NavLink
                             to="/add-task"
-                            className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent"
+                            className="flex items-center px-4 -mb-1"
+                            style={({ isActive }) =>
+                                isActive ? activeStyle : undefined
+                            }
                         >
                             Add Task
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="flex">
-                        <Link
+                        <NavLink
                             to="/my-task"
-                            className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent"
+                            className="flex items-center px-4 -mb-1"
+                            style={({ isActive }) =>
+                                isActive ? activeStyle : undefined
+                            }
                         >
                             My Task
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="flex">
-                        <Link
+                        <NavLink
                             to="/compleated-task"
-                            className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent"
+                            className="flex items-center px-4 -mb-1"
+                            style={({ isActive }) =>
+                                isActive ? activeStyle : undefined
+                            }
                         >
                             Compleated Task
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
                 <div className="items-center flex-shrink-0 hidden lg:flex">

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
 
 const AddTask = () => {
     const [file, setFile] = useState(null);
