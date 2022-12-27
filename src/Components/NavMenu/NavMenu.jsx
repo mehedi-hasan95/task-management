@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 
 const NavMenu = () => {
+    // Start Dark Theme
+
+    const [theme, setTheme] = useState("light");
+
+    // if local storage is empty save theme as light
+    useEffect(() => {
+        if (localStorage.getItem("theme") === null) {
+            localStorage.setItem("theme", "light");
+        }
+    }, []);
+
+    useEffect(() => {
+        // select html elem
+        const html = document.querySelector("html");
+        if (localStorage.getItem("theme") === "dark") {
+            html.classList.add("dark");
+            setTheme("dark");
+        } else {
+            html.classList.remove("dark");
+            setTheme("light");
+        }
+    }, [theme]);
+
+    // handle switch theme
+    const handleThemeSwitch = () => {
+        if (localStorage.getItem("theme") === "light") {
+            setTheme("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            setTheme("light");
+            localStorage.setItem("theme", "light");
+        }
+    };
+
+    // End Dark Theme
+
     return (
         <header className="p-4 dark:bg-gray-800 dark:text-gray-100">
             <div className="container flex justify-between h-16 mx-auto">
@@ -50,8 +87,11 @@ const NavMenu = () => {
                     <button className="self-center px-8 py-3 rounded">
                         Sign in
                     </button>
-                    <button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">
-                        Sign up
+                    <button
+                        onClick={handleThemeSwitch}
+                        className="p-4 bg-accent text-black dark:text-white rounded-full w-12 h-12 flex justify-center items-center"
+                    >
+                        {theme === "light" ? <BsFillSunFill /> : <BsMoonFill />}
                     </button>
                 </div>
                 <button className="p-4 lg:hidden">
