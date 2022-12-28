@@ -1,11 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    const [error, setError] = useState("");
+
+    const { logIn, googleLogin } = useContext(AuthContext);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        logIn(email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                navigate(from, { replace: true });
+                console.log(user);
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+    };
+
+    // Login With Google
+    const provider = new GoogleAuthProvider();
+    const handleGoogle = () => {
+        googleLogin(provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((error) => console.error(error));
+    };
+
     return (
         <div className="w-full max-w-md p-8 space-y-3 rounded-xl mx-auto dark:bg-gray-900 dark:text-gray-100">
             <h1 className="text-2xl font-bold text-center">Login</h1>
-            <form className="space-y-6 ng-untouched ng-pristine ng-valid">
+            <form
+                onSubmit={handleLogin}
+                className="space-y-6 ng-untouched ng-pristine ng-valid"
+            >
                 <div className="space-y-1 text-sm">
                     <label htmlFor="email" className="block dark:text-gray-400">
                         Email
@@ -51,6 +94,7 @@ const Login = () => {
             </div>
             <div className="flex justify-center space-x-4">
                 <button
+                    onClick={handleGoogle}
                     aria-label="Log in with Google"
                     className="p-3 rounded-sm"
                 >

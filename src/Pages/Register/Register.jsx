@@ -1,11 +1,75 @@
-import React from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const Register = () => {
+    const [error, setError] = useState("");
+    const [errors, setErrors] = useState(false);
+
+    const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirm = form.confirm.value;
+
+        if (password.length < 6 && password.length < 6) {
+            setError("Your password should be 6 digits");
+        }
+        if (password !== confirm) {
+            setError("Your Password didn't match");
+        }
+
+        if (password === confirm) {
+            setErrors(true);
+        }
+
+        createUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                form.reset();
+                handleNameAndUrl(name);
+            })
+            .catch((error) => {
+                console.error("error", error);
+                setError(error.message);
+            });
+
+        console.log(name, email, password, confirm);
+    };
+    // Handle update User name
+    const handleNameAndUrl = (name) => {
+        const profile = {
+            displayName: name,
+        };
+        updateUser(profile)
+            .then(() => {})
+            .catch((error) => {});
+    };
+
+    // Google Sign In
+    const provider = new GoogleAuthProvider();
+
+    const handleGoogle = () => {
+        googleLogin(provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((error) => console.error(error));
+    };
+
     return (
         <div className="w-full mx-auto max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
             <h1 className="text-2xl font-bold text-center">Register</h1>
-            <form className="space-y-6 ng-untouched ng-pristine ng-valid">
+            <form
+                onSubmit={handleRegistration}
+                className="space-y-6 ng-untouched ng-pristine ng-valid"
+            >
                 <div className="space-y-1 text-sm">
                     <label
                         htmlFor="username"
@@ -72,6 +136,7 @@ const Register = () => {
                         </Link>
                     </div>
                 </div>
+                {error && <p className="text-red-700">{error}</p>}
                 <button className="block w-full p-3 text-center rounded-sm text-white dark:text-gray-900 bg-gray-600 dark:bg-violet-400">
                     Register
                 </button>
@@ -85,6 +150,7 @@ const Register = () => {
             </div>
             <div className="flex justify-center space-x-4">
                 <button
+                    onClick={handleGoogle}
                     aria-label="Log in with Google"
                     className="p-3 rounded-sm"
                 >

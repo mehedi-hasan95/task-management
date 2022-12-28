@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const NavMenu = () => {
+    const { user, logOut } = useContext(AuthContext);
     // Start Dark Theme
 
     const [theme, setTheme] = useState("light");
@@ -101,9 +103,22 @@ const NavMenu = () => {
                     </li>
                 </ul>
                 <div className="items-center flex-shrink-0 hidden lg:flex">
-                    <Link to="/login" className="self-center px-8 py-3 rounded">
-                        Sign in
-                    </Link>
+                    {user?.uid ? (
+                        <Link
+                            onClick={logOut}
+                            to=""
+                            className="self-center px-8 py-3 rounded"
+                        >
+                            Log Out
+                        </Link>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="self-center px-8 py-3 rounded"
+                        >
+                            Sign in
+                        </Link>
+                    )}
                     <button
                         onClick={handleThemeSwitch}
                         className="p-4 bg-accent text-black dark:text-white rounded-full w-12 h-12 flex justify-center items-center"
