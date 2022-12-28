@@ -22,12 +22,12 @@ const Login = () => {
                 // Signed in
                 const user = userCredential.user;
                 navigate(from, { replace: true });
-                console.log(user);
                 // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                setError(errorMessage);
             });
     };
 
@@ -81,6 +81,7 @@ const Login = () => {
                         </Link>
                     </div>
                 </div>
+                {error && <p className="text-red-700">{error}</p>}
                 <button className="block w-full p-3 text-center rounded-sm text-white dark:text-gray-900 bg-gray-600  dark:bg-violet-400">
                     Sign in
                 </button>

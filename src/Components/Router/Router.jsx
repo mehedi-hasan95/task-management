@@ -6,6 +6,7 @@ import Login from "../../Pages/Login/Login";
 import MyTask from "../../Pages/MyTask/MyTask";
 import Register from "../../Pages/Register/Register";
 import Main from "./Main";
+import PrivetRouter from "./PrivetRouter";
 
 const router = createBrowserRouter([
     {
@@ -13,7 +14,14 @@ const router = createBrowserRouter([
         element: <Main />,
         children: [
             { path: "/", element: <Home /> },
-            { path: "add-task", element: <AddTask /> },
+            {
+                path: "add-task",
+                element: (
+                    <PrivetRouter>
+                        <AddTask />
+                    </PrivetRouter>
+                ),
+            },
             { path: "my-task", element: <MyTask /> },
             { path: "compleated-task", element: <CompletedTasks /> },
             { path: "login", element: <Login /> },
