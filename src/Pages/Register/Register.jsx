@@ -5,7 +5,6 @@ import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const Register = () => {
     const [error, setError] = useState("");
-    const [errors, setErrors] = useState(false);
 
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
 
@@ -22,10 +21,6 @@ const Register = () => {
         }
         if (password !== confirm) {
             setError("Your Password didn't match");
-        }
-
-        if (password === confirm) {
-            setErrors(true);
         }
 
         createUser(email, password)
