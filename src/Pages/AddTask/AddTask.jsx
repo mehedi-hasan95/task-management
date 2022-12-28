@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const AddTask = () => {
     const [file, setFile] = useState(null);
+
     return (
         <div className="p-6 dark:bg-gray-800 dark:text-gray-50">
             <form className=" max-w-3xl flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">

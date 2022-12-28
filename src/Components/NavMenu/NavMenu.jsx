@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 
 const NavMenu = () => {
@@ -101,9 +101,9 @@ const NavMenu = () => {
                     </li>
                 </ul>
                 <div className="items-center flex-shrink-0 hidden lg:flex">
-                    <button className="self-center px-8 py-3 rounded">
+                    <Link to="/login" className="self-center px-8 py-3 rounded">
                         Sign in
-                    </button>
+                    </Link>
                     <button
                         onClick={handleThemeSwitch}
                         className="p-4 bg-accent text-black dark:text-white rounded-full w-12 h-12 flex justify-center items-center"
