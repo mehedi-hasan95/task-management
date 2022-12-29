@@ -28,7 +28,7 @@ const UpdateTask = () => {
             });
     };
 
-    console.log(taskData);
+    // Update Task
 
     const updateTast = (data) => {
         const products = {

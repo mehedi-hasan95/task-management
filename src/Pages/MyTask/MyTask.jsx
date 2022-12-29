@@ -22,8 +22,24 @@ const MyTask = () => {
         },
     });
 
+    // Compleate Task
+    const completedTask = (data) => {
+        console.log(data);
+        fetch(`http://localhost:5000/completed/${data}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // navigate("/my-task");
+            });
+    };
+
+    // Delete Task
+
     const confirmDelete = (tasksid) => {
-        console.log(tasksid);
         fetch(`http://localhost:5000/post/${tasksid}`, {
             method: "DELETE", // or 'PUT'
         })
@@ -48,6 +64,7 @@ const MyTask = () => {
                         key={task._id}
                         task={task}
                         confirmDelete={confirmDelete}
+                        completedTask={completedTask}
                     ></Task>
                 ))}
             </div>

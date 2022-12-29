@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Task = ({ task, confirmDelete, completedTask }) => {
-    const { title, desc, date, img, _id } = task;
+const Completed = ({ complete, confirmDelete }) => {
+    const { title, desc, date, img, _id } = complete;
     const newDate = new Date(date).toDateString();
     return (
         <div
@@ -25,10 +25,10 @@ const Task = ({ task, confirmDelete, completedTask }) => {
                 <p className="dark:text-white">{desc}</p>
                 <div className="flex flex-wrap gap-5 pt-5">
                     <Link
-                        to={`/update-task/${_id}`}
+                        to={`/my-task`}
                         className="px-5 py-2 rounded-lg font-semibold bg-green-300"
                     >
-                        Update Task
+                        Uncomplete Task
                     </Link>
                     <button
                         onClick={(e) => confirmDelete(_id)}
@@ -36,16 +36,10 @@ const Task = ({ task, confirmDelete, completedTask }) => {
                     >
                         Delete Task
                     </button>
-                    <button
-                        onClick={(e) => completedTask(_id)}
-                        className="px-5 py-2 rounded-lg font-semibold bg-violet-400"
-                    >
-                        Completed Task
-                    </button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Task;
+export default Completed;
