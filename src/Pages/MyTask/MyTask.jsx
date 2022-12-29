@@ -22,14 +22,15 @@ const MyTask = () => {
         },
     });
 
-    const confirmDelete = (tasks) => {
-        console.log(tasks);
-        fetch(`http://localhost:5000/post/${tasks._id}`, {
+    const confirmDelete = (tasksid) => {
+        console.log(tasksid);
+        fetch(`http://localhost:5000/post/${tasksid}`, {
             method: "DELETE", // or 'PUT'
         })
             .then((res) => res.json())
             .then((data) => {
                 if (data.acknowledged) {
+                    refetch();
                 }
             });
     };

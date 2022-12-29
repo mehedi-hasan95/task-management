@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Task = ({ task, confirmDelete }) => {
-    const { title, desc, date, img } = task;
+    const { title, desc, date, img, _id } = task;
     const newDate = new Date(date).toDateString();
     return (
         <div>
@@ -25,11 +26,14 @@ const Task = ({ task, confirmDelete }) => {
                     </span>
                     <p className="dark:text-white">{desc}</p>
                     <div className="flex flex-wrap gap-5 pt-5">
-                        <button className="px-5 py-2 rounded-lg font-semibold bg-green-300">
+                        <Link
+                            to={`/update-task/${_id}`}
+                            className="px-5 py-2 rounded-lg font-semibold bg-green-300"
+                        >
                             Update Task
-                        </button>
+                        </Link>
                         <button
-                            onClick={confirmDelete}
+                            onClick={(e) => confirmDelete(_id)}
                             className="px-5 py-2 rounded-lg font-semibold bg-red-400"
                         >
                             Delete Task
