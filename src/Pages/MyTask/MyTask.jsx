@@ -22,6 +22,18 @@ const MyTask = () => {
         },
     });
 
+    const confirmDelete = (tasks) => {
+        console.log(tasks);
+        fetch(`http://localhost:5000/post/${tasks._id}`, {
+            method: "DELETE", // or 'PUT'
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.acknowledged) {
+                }
+            });
+    };
+
     if (isLoading) return <Lodding></Lodding>;
 
     return (
@@ -29,9 +41,13 @@ const MyTask = () => {
             <h2 className="text-3xl text-center py-10 dark:text-white">
                 User All Task
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 g-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 {tasks?.map((task) => (
-                    <Task key={task._id} task={task}></Task>
+                    <Task
+                        key={task._id}
+                        task={task}
+                        confirmDelete={confirmDelete}
+                    ></Task>
                 ))}
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Task = ({ task }) => {
+const Task = ({ task, confirmDelete }) => {
     const { title, desc, date, img } = task;
     const newDate = new Date(date).toDateString();
     return (
@@ -28,7 +28,10 @@ const Task = ({ task }) => {
                         <button className="px-5 py-2 rounded-lg font-semibold bg-green-300">
                             Update Task
                         </button>
-                        <button className="px-5 py-2 rounded-lg font-semibold bg-red-400">
+                        <button
+                            onClick={confirmDelete}
+                            className="px-5 py-2 rounded-lg font-semibold bg-red-400"
+                        >
                             Delete Task
                         </button>
                         <button className="px-5 py-2 rounded-lg font-semibold bg-violet-400">
