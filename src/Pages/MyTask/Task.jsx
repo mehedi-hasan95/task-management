@@ -8,7 +8,7 @@ const Task = ({ task }) => {
             <div
                 rel="noopener noreferrer"
                 href="#"
-                className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900"
+                className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-purple-500 dark:bg-gray-900"
             >
                 <img
                     className="object-cover w-full rounded h-44 dark:bg-gray-500"
@@ -20,9 +20,7 @@ const Task = ({ task }) => {
                         {title}
                     </h3>
                     <span className="dark:text-gray-400 text-xl">
-                        <span className=" text-violet-500 dark:text-white">
-                            Created date:
-                        </span>{" "}
+                        <span className=" text-white">Created date:</span>{" "}
                         {newDate}
                     </span>
                     <p className="dark:text-white">{desc}</p>

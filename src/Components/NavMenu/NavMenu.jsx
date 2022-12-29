@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const NavMenu = () => {
+    const [navbar, setNavbar] = useState(false);
     const { user, logOut } = useContext(AuthContext);
     // Start Dark Theme
 
@@ -40,110 +41,131 @@ const NavMenu = () => {
     };
 
     // End Dark Theme
-
-    // NavNavLink
-    let activeStyle = {
-        borderBottom: "2px solid #ededed",
-    };
-
     return (
-        <header className="p-4 dark:bg-gray-800 dark:text-gray-100 mb-5">
-            <div className="container flex justify-between h-16 mx-auto">
-                <NavLink
-                    to="/"
-                    aria-label="Back to homepage"
-                    className="flex items-center p-2"
-                >
-                    <h2>Task Managment</h2>
-                </NavLink>
-                <ul className="items-stretch hidden space-x-3 lg:flex">
-                    <li className="flex">
-                        <NavLink
-                            to="/"
-                            className="flex items-center px-4 -mb-1"
-                            style={({ isActive }) =>
-                                isActive ? activeStyle : undefined
-                            }
-                        >
-                            Home
-                        </NavLink>
-                    </li>
-                    <li className="flex">
-                        <NavLink
-                            to="/add-task"
-                            className="flex items-center px-4 -mb-1"
-                            style={({ isActive }) =>
-                                isActive ? activeStyle : undefined
-                            }
-                        >
-                            Add Task
-                        </NavLink>
-                    </li>
-                    <li className="flex">
-                        <NavLink
-                            to="/my-task"
-                            className="flex items-center px-4 -mb-1"
-                            style={({ isActive }) =>
-                                isActive ? activeStyle : undefined
-                            }
-                        >
-                            My Task
-                        </NavLink>
-                    </li>
-                    <li className="flex">
-                        <NavLink
-                            to="/compleated-task"
-                            className="flex items-center px-4 -mb-1"
-                            style={({ isActive }) =>
-                                isActive ? activeStyle : undefined
-                            }
-                        >
-                            Compleated Task
-                        </NavLink>
-                    </li>
-                </ul>
-                <div className="items-center flex-shrink-0 hidden lg:flex">
+        <nav className="w-full bg-purple-500 shadow dark:bg-gray-900">
+            <div className="justify-between px-4 mx-auto lg:container md:items-center md:flex md:px-8">
+                <div>
+                    <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                        <Link to="/">
+                            <h2 className="text-2xl font-bold text-white">
+                                Task Management
+                            </h2>
+                        </Link>
+                        <div className="md:hidden">
+                            <button
+                                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                                onClick={() => setNavbar(!navbar)}
+                            >
+                                {navbar ? (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6 text-white"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M4 6h16M4 12h16M4 18h16"
+                                        />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+                            navbar ? "block" : "hidden"
+                        }`}
+                    >
+                        <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                            <li className="text-white hover:text-indigo-200">
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li className="text-white hover:text-indigo-200">
+                                <Link to="/add-task">Add Task</Link>
+                            </li>
+                            <li className="text-white hover:text-indigo-200">
+                                <Link to="/my-task">My Task</Link>
+                            </li>
+                            <li className="text-white hover:text-indigo-200">
+                                <Link to="/compleated-task">
+                                    Compleated Task
+                                </Link>
+                            </li>
+                        </ul>
+
+                        <div className="mt-3 space-y-2 md:hidden">
+                            {user?.uid ? (
+                                <Link
+                                    onClick={logOut}
+                                    className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                                >
+                                    Log Out
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                                >
+                                    Sign in
+                                </Link>
+                            )}
+                            <button
+                                onClick={handleThemeSwitch}
+                                className="text-black dark:text-white"
+                            >
+                                {theme === "light" ? (
+                                    <BsFillSunFill />
+                                ) : (
+                                    <BsMoonFill />
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="hidden space-x-2 md:inline-block">
                     {user?.uid ? (
                         <Link
                             onClick={logOut}
-                            to=""
-                            className="self-center px-8 py-3 rounded"
+                            className="px-4 py-2 mr-5 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
                         >
                             Log Out
                         </Link>
                     ) : (
                         <Link
                             to="/login"
-                            className="self-center px-8 py-3 rounded"
+                            className="px-4 py-2 mr-5 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
                         >
                             Sign in
                         </Link>
                     )}
                     <button
                         onClick={handleThemeSwitch}
-                        className="p-4 bg-accent text-black dark:text-white rounded-full w-12 h-12 flex justify-center items-center"
+                        className="text-black dark:text-white"
                     >
                         {theme === "light" ? <BsFillSunFill /> : <BsMoonFill />}
                     </button>
                 </div>
-                <button className="p-4 lg:hidden">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        className="w-6 h-6 dark:text-gray-100"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4 6h16M4 12h16M4 18h16"
-                        ></path>
-                    </svg>
-                </button>
             </div>
-        </header>
+        </nav>
     );
 };
 
