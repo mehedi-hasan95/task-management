@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const AddTask = () => {
     const [file, setFile] = useState(null);
     const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const uploadImage = process.env.REACT_APP_image_host;
 
@@ -39,7 +41,7 @@ const AddTask = () => {
                     })
                         .then((response) => response.json())
                         .then((data) => {
-                            console.log(data);
+                            navigate("/my-task");
                         });
                 }
             });
