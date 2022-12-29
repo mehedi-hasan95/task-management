@@ -1,20 +1,14 @@
-import { async } from "@firebase/util";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const UpdateTask = () => {
     const [file, setFile] = useState(null);
     const { register, handleSubmit } = useForm();
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [taskData, setTaskData] = useState("");
 
-    const uploadImage = process.env.REACT_APP_image_host;
-
     const pranId = useParams();
-    console.log(pranId.task_id);
 
     useEffect(() => {
         getTask();

@@ -37,7 +37,7 @@ const SiteInfo = () => {
             </button>
             <p className="text-center mt-6">
                 <Link
-                    to="/sign-up"
+                    to="/register"
                     className="text-xl dark:text-white underline hover:text-blue-700 dark:hover:text-blue-700"
                 >
                     or sign up with your email address
