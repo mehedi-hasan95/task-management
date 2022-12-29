@@ -6,6 +6,7 @@ import Login from "../../Pages/Login/Login";
 import MyTask from "../../Pages/MyTask/MyTask";
 import UpdateTask from "../../Pages/MyTask/UpdateTask";
 import Register from "../../Pages/Register/Register";
+import Lodding from "../Lodding/Lodding";
 import Main from "./Main";
 import PrivetRouter from "./PrivetRouter";
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
             { path: "login", element: <Login /> },
             { path: "register", element: <Register /> },
             { path: "update-task/:task_id", element: <UpdateTask /> },
+            { path: "load", element: <Lodding /> },
         ],
     },
 ]);

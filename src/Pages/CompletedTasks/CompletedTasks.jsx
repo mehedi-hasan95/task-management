@@ -36,10 +36,16 @@ const CompletedTasks = () => {
 
     if (isLoading) return <Lodding />;
     return (
-        <div className="bg-white dark:bg-gray-800 container mx-auto">
-            <h2 className="text-3xl text-center py-10 dark:text-white">
-                User All Task
-            </h2>
+        <div className="bg-white dark:bg-gray-800 container mx-auto mt-5">
+            {completed?.length > 0 ? (
+                <h2 className="text-3xl text-center py-10 dark:text-white">
+                    You have total {completed?.length} completed task.
+                </h2>
+            ) : (
+                <h2 className="text-3xl text-center py-10 dark:text-white">
+                    You have no completed task.
+                </h2>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 {completed?.map((complete) => (
                     <Completed
