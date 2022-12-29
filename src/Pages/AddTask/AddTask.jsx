@@ -10,6 +10,7 @@ const AddTask = () => {
     const uploadImage = process.env.REACT_APP_image_host;
 
     const submitTast = (data) => {
+        const date = new Date();
         const img = data.img[0];
         const formData = new FormData();
         formData.append("image", img);
@@ -19,8 +20,28 @@ const AddTask = () => {
             body: formData,
         })
             .then((response) => response.json())
-            .then((result) => {
-                console.log("Success:", result);
+            .then((imgData) => {
+                if (imgData.success) {
+                    const products = {
+                        title: data.title,
+                        desc: data.desc,
+                        user: user.email,
+                        img: imgData.data.url,
+                        date,
+                    };
+                    console.log(products);
+                    fetch("http://localhost:5000/task/add", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(products),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                        });
+                }
             });
     };
 
