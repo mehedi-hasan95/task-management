@@ -32,13 +32,16 @@ const AddTask = () => {
                         date,
                     };
                     console.log(products);
-                    fetch("http://localhost:5000/task/add", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(products),
-                    })
+                    fetch(
+                        "https://task-management-server-tau.vercel.app/task/add",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(products),
+                        }
+                    )
                         .then((response) => response.json())
                         .then((data) => {
                             navigate("/my-task");

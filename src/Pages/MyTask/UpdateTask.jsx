@@ -21,7 +21,9 @@ const UpdateTask = () => {
     }, []);
 
     const getTask = async () => {
-        await fetch(`http://localhost:5000/update/${pranId.task_id}`)
+        await fetch(
+            `https://task-management-server-tau.vercel.app/update/${pranId.task_id}`
+        )
             .then((response) => response.json())
             .then((data) => {
                 setTaskData(data);
@@ -35,13 +37,16 @@ const UpdateTask = () => {
             title: data.title,
             desc: data.desc,
         };
-        fetch(`http://localhost:5000/update/${taskData._id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(products),
-        })
+        fetch(
+            `https://task-management-server-tau.vercel.app/update/${taskData._id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(products),
+            }
+        )
             .then((response) => response.json())
             .then((data) => {
                 navigate("/my-task");

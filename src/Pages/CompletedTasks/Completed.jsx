@@ -28,7 +28,7 @@ const Completed = ({ complete, confirmDelete }) => {
                         to={`/my-task`}
                         className="px-5 py-2 rounded-lg font-semibold bg-green-300"
                     >
-                        Uncomplete Task
+                        Not Completed
                     </Link>
                     <button
                         onClick={(e) => confirmDelete(_id)}

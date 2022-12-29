@@ -14,7 +14,7 @@ const CompletedTasks = () => {
         queryKey: ["completed"],
         queryFn: async () => {
             const res = await fetch(
-                `http://localhost:5000/completed?email=${user.email}&&completed=true`
+                `https://task-management-server-tau.vercel.app/completed?email=${user.email}&&completed=true`
             );
             const data = await res.json();
             return data;
@@ -23,7 +23,7 @@ const CompletedTasks = () => {
 
     // Delete Task
     const confirmDelete = (tasksid) => {
-        fetch(`http://localhost:5000/post/${tasksid}`, {
+        fetch(`https://task-management-server-tau.vercel.app/post/${tasksid}`, {
             method: "DELETE", // or 'PUT'
         })
             .then((res) => res.json())
@@ -36,7 +36,7 @@ const CompletedTasks = () => {
 
     if (isLoading) return <Lodding />;
     return (
-        <div className="bg-white dark:bg-gray-800 container mx-auto mt-5">
+        <div className="bg-white dark:bg-gray-800 container mx-auto mt-5 px-5">
             {completed?.length > 0 ? (
                 <h2 className="text-3xl text-center py-10 dark:text-white">
                     You have total {completed?.length} completed task.
